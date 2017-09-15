@@ -27,8 +27,9 @@ public class DeviceController {
         if(minLocationNumber != null) {
             if(maxLocationNumber != null) {
                 devices = deviceDao.findByLocationnumberBetween(minLocationNumber, maxLocationNumber);
+            } else {
+                devices = deviceDao.findByLocationnumberGreaterThan(minLocationNumber);
             }
-            devices = deviceDao.findByLocationnumberGreaterThan(minLocationNumber);
         } else if(maxLocationNumber != null) {
             devices = deviceDao.findByLocationnumberLessThan(maxLocationNumber);
         }
