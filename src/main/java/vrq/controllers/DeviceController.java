@@ -2,14 +2,13 @@ package vrq.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.logging.log4j2.Log4J2LoggingSystem;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
+import vrq.models.Device;
 import vrq.search.DeviceRepository;
 import vrq.search.DeviceSpecificationBuilder;
-import vrq.models.Device;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,21 +41,21 @@ public class DeviceController {
         }
         Specification<Device> spec = builder.build();
         try {
-            if(orderBy != null) {
-                Sort sort = new Sort(Sort.Direction.ASC,orderBy);
+            if (orderBy != null) {
+                Sort sort = new Sort(Sort.Direction.ASC, orderBy);
                 searchResult = repo.findAll(spec, sort);
             } else {
                 searchResult = repo.findAll(spec);
             }
-            if(offset != null) {
+            if (offset != null) {
                 searchResult = searchResult.stream().skip(offset).collect(Collectors.toList());
             }
-            if(maxResults != null) {
+            if (maxResults != null) {
                 searchResult = searchResult.stream().limit(maxResults).collect(Collectors.toList());
             }
-        } catch(InvalidDataAccessApiUsageException e) {
+        } catch (InvalidDataAccessApiUsageException e) {
             log.info("Selected search attribute does not exist: " + e);
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.info("Error in the search query: " + e);
         }
         return searchResult;

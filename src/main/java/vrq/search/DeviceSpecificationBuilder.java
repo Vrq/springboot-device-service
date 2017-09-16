@@ -12,7 +12,7 @@ public class DeviceSpecificationBuilder {
     private final List<SearchCriteria> params;
 
     public DeviceSpecificationBuilder() {
-        params = new ArrayList<SearchCriteria>();
+        params = new ArrayList<>();
     }
 
     public DeviceSpecificationBuilder with(String key, String operation, Object value) {
